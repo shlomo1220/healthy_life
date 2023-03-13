@@ -1,3 +1,5 @@
+// BLa bla bla
+
 const express = require("express");
 const router = express.Router();
 const { ChatModel, validateJoi } = require("../models/chatsModel")
