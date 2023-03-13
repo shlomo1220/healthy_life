@@ -17,10 +17,9 @@ exports.validateJoi = (_reqBody) => {
     let joiSchema = Joi.object({
         title: Joi.string().min(2).max(50).required(),
         info: Joi.string().min(1).max(999).required(),
-        img: Joi.string().min(1).max(50).required(),
+        img: Joi.string().min(1).max(50).allow(),
         users: Joi.string().min(1).max(999).required(),
         group: Joi.string().min(1).max(999).required(),
-        data: Joi.date().min(1).max(50).required(),
     })
     return joiSchema.validate(_reqBody)
 }

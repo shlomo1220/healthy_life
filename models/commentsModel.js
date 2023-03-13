@@ -1,14 +1,16 @@
 const mongoose = require("mongoose");
 const Joi = require("joi");
 
-let schema = new mongoose.Schema({
+let commentsSchema = new mongoose.Schema({
 title:String,
 info:String,
-user_id:String,
+user_id:{type:String , default:"1234"},
 menu_id:String,
-date:Number,
+date: {
+    type: Date, default: Date.now
+},
 })
-exports.Model = mongoose.model("s",schema)
+exports.commentsModel = mongoose.model("comments",commentsSchema);
 
 exports.validateJoi = (_reqBody) => {
 let joiSchema = Joi.object({
