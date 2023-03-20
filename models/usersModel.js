@@ -6,12 +6,13 @@ const jwt = require("jsonwebtoken");
 let schema = new mongoose.Schema({
     name: String,
     email: String,
-    phone: String,
     password: String,
     date: {
         type: Date, default: Date.now
     },
-    groups: Array,
+    groups:{
+         type:Array ,default:[]
+        },
     role: {
         type: String, default: "user"
     }
@@ -19,17 +20,23 @@ let schema = new mongoose.Schema({
 exports.UserModel = mongoose.model("users", schema)
 
 exports.createToken = (user_id, role) => {
-    let token = jwt.sign({ _id: worker_id, role, user_name }, "carsSecret", { expiresIn: "600mins" })
+    let token = jwt.sign({ _id: user_id, role}, "Shlomo", { expiresIn: "60000mins" })
     return token;
 }
 
-exports.validateJoi = (_reqBody) => {
+exports.validateUser = (_reqBody) => {
     let joiSchema = Joi.object({
         name: Joi.string().min(2).max(50).required(),
         email: Joi.string().min(10).max(50).required(),
-        phone: Joi.string().min(9).max(12).required(),
         password: Joi.string().min(8).max(20).required(),
-        groups: Joi.array().min(0).max(999).required(),
+    })
+    return joiSchema.validate(_reqBody)
+}
+
+exports.validateLogin = (_reqBody) =>{
+    let joiSchema = Joi.object({
+        email: Joi.string().required(),
+        password: Joi.string().required(),
     })
     return joiSchema.validate(_reqBody)
 }
